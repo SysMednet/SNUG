@@ -49,6 +49,7 @@ The input drug target file should be a `.txt` file with following format:
 | drug n | target 1;target 2; ... ;target n; ... |
 | ... | ... |
 
+Note: The targets should be converted to Entrez ID before running SNUG.
 Note: The targets for each drug should be separated by `;`.
 
 # Basic Usage
