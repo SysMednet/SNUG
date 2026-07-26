@@ -2,7 +2,7 @@
 
 SNUG is a single-sample network-based drug efficacy prediction framework that improves traditional network proximity analysis by integrating individual signatures (IS), high-confidence single-sample networks (hcSINs) and proximity-based hypergeometric test (PHT) scoring.  
 
-The construction of SNUG is comprised of four main steps:
+The SNUG workflow consists of four main steps:
 * Step 1: single-sample networks (SINs) construction
 * Step 2: high-confidence single-sample networks (hcSINs) construction
 * Step 3: individual signature (IS) selection
@@ -17,16 +17,11 @@ The code was developed and tested with the following software:
 - NetworkX 3.6.1
 - kneed 0.8.5
 
-Install all dependencies using:  
-```bash
-pip install -r requirement.txt
-```
-
 # Input File Format
 
 ### Gene expression matrix (GEM) file
 
-The input GEM file should be a `.txt` file with following structure:
+The input GEM file should be a tab-separated `.txt` file with the following structure:
 | gene id | sample 1 | sample 2 | ... | sample n |
 | ------- | --- | --- | --- | --- |
 | gene 1 | ... | ... | ... | ... |
@@ -35,11 +30,11 @@ The input GEM file should be a `.txt` file with following structure:
 | gene n | ... | ... | ... | ... |
 | ... | ... | ... | ... | ... |
 
-Notie that the gene ID should be transfered to Entrez ID before input
+Note: Gene IDs should be converted to Entrez ID before running SNUG.
 
 ### Background network file
 
-The input network file should be a tab-separated `.txt` file with following informations:  
+The input network file should be a tab-separated `.txt` file with the following columns:  
 
 `Entrez1	Entrez2	protein1	protein2	combined_score`
 
@@ -54,11 +49,11 @@ The input drug target file should be a `.txt` file with following format:
 | drug n | target 1;target 2; ... ;target n; ... |
 | ... | ... |
 
-Notie that the targets of each drug should be separated by a `;`
+Note: The targets for each drug should be separated by `;`.
 
 # Basic Usage
 
-The demo folder contains a subset of the datasets required to run the example workflow.
+The demo dataset is a small example for testing the workflow and does not represent the complete dataset used in the manuscript.
 
 ### Step 1: single-sample networks (SINs) construction
 
@@ -135,6 +130,6 @@ python3 ./PHT/4_PHT.py -hc ./demo/demo_hcSIN -i ./demo/demo_individual_signature
 ```
 `-h`: Get help with the commands.  
 `-hc`: Path of folder that contains hcSIN files.  
-`-i`: Individual signature files (i.e., the output file from step 3).  
+`-i`: Individual signature file (i.e., the output file from step 3).  
 `-d`: Drug target file.  
 `-o`: Output file containing PHT result of each sample.  
