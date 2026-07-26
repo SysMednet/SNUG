@@ -46,16 +46,19 @@ The input network file should be a tab-separated `.txt` file with the following 
 
 ### Drug target file
 
-The input drug target file should be a `.txt` file in the following format (without a header). Each row should contain one drug name followed by its target genes.
+The input drug target file should be a `.txt` file in the following format (without a header). Each row should contain a drug name followed by its target genes.
 
-| drug 1 | target 1;target 2; ... ;target n; ... |
-| drug 2 | target 1;target 2; ... ;target n; ... |
-| ... | ... |
-| drug n | target 1;target 2; ... ;target n; ... |
-| ... | ... |
+```text
+drug 1    target 1;target 2; ... ;target n; ...
+drug 2    target 1;target 2; ... ;target n; ...
+...
+drug n    target 1;target 2; ... ;target n; ...
+...
+```
 
-Note: Target genes should be converted to Entrez Gene IDs before running SNUG.
-Note: The targets for each drug should be separated by `;`.
+Note:
+- Target genes should be converted to Entrez Gene IDs before running SNUG.
+- The targets for each drug should be separated by `;`.
 
 # Basic Usage
 
