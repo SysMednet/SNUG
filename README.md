@@ -15,7 +15,13 @@ The code was developed and tested with the following software:
 - NumPy 2.4.3
 - SciPy 1.17.1
 - NetworkX 3.6.1
-- kneed 0.8.5
+- kneed 0.8.5  
+
+Install the required packages using:
+
+```bash
+pip install "package name"
+```
 
 # Input File Format
 
@@ -30,7 +36,7 @@ The input GEM file should be a tab-separated `.txt` file with the following stru
 | gene n | ... | ... | ... | ... |
 | ... | ... | ... | ... | ... |
 
-Note: Gene IDs should be converted to Entrez ID before running SNUG.
+Note: Gene IDs should be converted to Entrez Gene IDs before running SNUG.
 
 ### Background network file
 
@@ -40,16 +46,15 @@ The input network file should be a tab-separated `.txt` file with the following 
 
 ### Drug target file
 
-The input drug target file should be a `.txt` file with following format:
-| drug | targets |
-| ------- | --- |
+The input drug target file should be a `.txt` file in the following format (without a header). Each row should contain one drug name followed by its target genes.
+
 | drug 1 | target 1;target 2; ... ;target n; ... |
 | drug 2 | target 1;target 2; ... ;target n; ... |
 | ... | ... |
 | drug n | target 1;target 2; ... ;target n; ... |
 | ... | ... |
 
-Note: The targets should be converted to Entrez ID before running SNUG.
+Note: Target genes should be converted to Entrez Gene IDs before running SNUG.
 Note: The targets for each drug should be separated by `;`.
 
 # Basic Usage
@@ -58,7 +63,7 @@ The demo dataset is a small example for testing the workflow and does not repres
 
 ### Step 1: single-sample networks (SINs) construction
 
-**Step 1-1: calculate genome-wide sample weight:**
+**Step 1-1: calculate genome-wide sample weights:**
 
 ```bash
 python3 ./SWEET/1-1_correlation_to_weight.py -g ./demo/demo_GEM.txt -c ./demo/demo_correlation.txt -w ./demo/demo_weight.txt
@@ -101,7 +106,7 @@ python3 ./SWEET/1-4_sweet_degree_split_output_network.py -g ./demo/demo_GEM.txt 
 `-w`: Sample weight file (i.e., the output file from step 1-1).  
 `-m`: Sample mean value file (i.e., the output file from step 1-2).  
 `-s`: Sample standard deviation file (i.e., the output file from step 1-3).  
-`-o`: Path of folder that contains SIN files.  
+`-o`: Path to the folder containing SIN files.  
 
 ### Step 2: high-confidence single-sample networks (hcSINs) construction
 
@@ -111,8 +116,8 @@ python3 ./hcSIN/2_hcSIN_construction.py -n ./demo/demo_network.txt -w ./demo/dem
 `-h`: Get help with the commands.  
 `-n`: Background network file.  
 `-w`: Sample weight file (i.e., the output file from step 1-1).  
-`-s`: Path of folder that contains SIN files (i.e., the output file from step 1-4).  
-`-hc`: Path of folder that contains hcSIN files.  
+`-s`: Path to the folder containing SIN files (i.e., the output file from step 1-4).  
+`-hc`: Path to the folder containing hcSIN files.  
 
 ### Step 3: individual signature (IS) selection
 
@@ -121,7 +126,7 @@ python3 ./IS/3_individual_signature_selection.py -w ./demo/demo_weight.txt -hc .
 ```
 `-h`: Get help with the commands.  
 `-w`: Sample weight file (i.e., the output file from step 1-1).  
-`-hc`: Path of folder that contains hcSIN files.  
+`-hc`: Path to the folder containing hcSIN files (i.e., the output file from step 2).  
 `-o`: Output file containing individual signatures of each sample.  
 
 ### Step 4: proximity-based hypergeometric test (PHT)
@@ -130,7 +135,7 @@ python3 ./IS/3_individual_signature_selection.py -w ./demo/demo_weight.txt -hc .
 python3 ./PHT/4_PHT.py -hc ./demo/demo_hcSIN -i ./demo/demo_individual_signature.txt -d ./demo/demo_drug_target.txt -o ./demo/demo_SNUG.txt
 ```
 `-h`: Get help with the commands.  
-`-hc`: Path of folder that contains hcSIN files.  
+`-hc`: Path to the folder containing hcSIN files (i.e., the output file from step 2).  
 `-i`: Individual signature file (i.e., the output file from step 3).  
 `-d`: Drug target file.  
-`-o`: Output file containing PHT result of each sample.  
+`-o`: Output file containing the PHT results for each sample.  
